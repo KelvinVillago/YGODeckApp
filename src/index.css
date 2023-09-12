@@ -1,0 +1,16 @@
+.deck-card{
+  background-color: rgb(67, 67, 67);
+  border: none;
+  padding: 5px;
+  margin:10px;
+  border-radius: 25px;
+}
+
+body{
+  background-color: lightgray
+}
+
+.deck-card-img{
+  max-width:100%;
+  height: auto;
+}
