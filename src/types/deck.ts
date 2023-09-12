@@ -8,7 +8,7 @@ type DeckType = {
     extraDeck:string,
     dateCreated:string,
     user_id:number,
-    author: UserType
+    creator: UserType
 }
 
 export default DeckType

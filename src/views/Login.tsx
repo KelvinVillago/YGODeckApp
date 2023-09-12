@@ -46,7 +46,7 @@ export default function Login({ isLoggedIn, logUserIn, flashMessage }: LoginProp
     const validPassword = (password:string):boolean => password.length > 7
     return (
         <>
-            <h1 className='text-center'>Log In</h1>
+            <h1 className='text-center title'>Log In</h1>
             <Card className='mt-3'>
                 <Card.Body>
                     <Form onSubmit={handleFormSubmit}>

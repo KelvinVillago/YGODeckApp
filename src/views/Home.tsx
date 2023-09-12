@@ -55,12 +55,14 @@ export default function Home({ isLoggedIn, user, flashMessage }: HomeProps) {
 
     return (
         <>
-            <h1>Hello {isLoggedIn ? user?.username : 'Friend'}</h1>
-            {isLoggedIn && <Button variant='success' className='w-100' onClick={() => setDisplayForm(!displayForm)}>Create New Deck</Button>}
+            <p className='text-center title'>Hello {isLoggedIn ? user?.username : 'Friend'}</p>
+            {isLoggedIn && <Button variant='success' className='submit-btn w-100' onClick={() => setDisplayForm(!displayForm)}>Create New Deck</Button>}
             { displayForm && (
                 <DeckForm handleChange={handleInputChange} handleSubmit={handleFormSubmit} newDeck={newDeck} isLoggedIn={isLoggedIn}/>
             )}
-            {decks.map( p => <DeckCard deck={p}  key={p.id} currentUser={user} /> )}
+            <div className='row'>
+                {decks.map( p => <DeckCard deck={p}  key={p.id} currentUser={user} /> )}
+            </div>
         </>
     )
 }

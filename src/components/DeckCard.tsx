@@ -12,15 +12,15 @@ type DeckCardProps = {
 
 export default function DeckCard({ deck, currentUser }: DeckCardProps) {
     return (
-        <div className="deck-card text-center">
-            <div>
-                <h3>{deck.name}</h3>
-                {/* <h5>By {deck.author.username}</h5> */}
-                {/* <p>{deck.body}</p> */}
-                <Link  to={`/decks/${deck.id}`}>
-                    <Button variant='primary'>View Deck</Button>
-                </Link>
-
+        <div className="col-6">  
+            <div className="deck-card text-center">
+                <div>
+                    <h3>{deck.name}</h3>
+                    <h5>By {deck.creator.username}</h5>
+                    <Link  to={`/decks/${deck.id}`}>
+                        <Button className="view-btn" variant='primary'>View Deck</Button>
+                    </Link>
+                </div>
             </div>
         </div>
     )

@@ -1,9 +1,11 @@
 .deck-card{
-  background-color: rgb(67, 67, 67);
+  background-color: rgb(114, 114, 114);
   border: none;
-  padding: 5px;
+  padding: 1rem;
   margin:10px;
   border-radius: 25px;
+  box-shadow: 5px 5px 10px 5px rgb(37, 37, 37);
+
 }
 
 body{
@@ -13,4 +15,45 @@ body{
 .deck-card-img{
   max-width:100%;
   height: auto;
+}
+
+.view-btn{
+  position: relative;
+  background-color: rgb(33, 88, 207);
+  color:rgb(40, 40, 40);
+  border: none;
+}
+
+.view-btn:hover, .view-btn:focus{
+  box-shadow: 0.3em 0.3em 0.3em -0.1em rgb(100, 193, 243);
+  transform: translateY(-0.05em);
+  background-color: rgb(100, 193, 243);
+  color:rgb(40, 40, 40);
+}
+
+.submit-btn{
+  position: relative;
+  background-color: rgb(33, 207, 56);
+  color:rgb(40, 40, 40);
+  border: none;
+  margin-top: 5vh;
+}
+
+.submit-btn:hover, .submit-btn:focus{
+  box-shadow: 0.3em 0.3em 0.3em -0.1em rgb(4, 121, 17);
+  transform: translateY(-0.05em);
+  background-color: rgb(8, 148, 19);
+  color:rgb(40, 40, 40);
+}
+
+.deck-form{
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+}
+
+
+.title{
+  margin-top: 3vh;
+  font-size: 8vh;
+  padding: 3%;
 }

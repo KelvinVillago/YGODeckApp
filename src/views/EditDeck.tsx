@@ -82,7 +82,7 @@ export default function EditDeck({ flashMessage, currentUser }: EditDeckProps) {
 
     return (
         <>
-            <h1 className="text-center">Edit {deckToEdit?.name}</h1>
+            <h1 className="text-center title">Edit {deckToEdit?.name}</h1>
             {deckToEdit && !view && (
                 <div className='row'>
                     <div className='col-8'>
