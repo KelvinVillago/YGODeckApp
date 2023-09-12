@@ -17,11 +17,9 @@ export default function DeckCard({ deck, currentUser }: DeckCardProps) {
                 <h3>{deck.name}</h3>
                 {/* <h5>By {deck.author.username}</h5> */}
                 {/* <p>{deck.body}</p> */}
-                {currentUser?.id === deck.user_id && (
-                    <Link  to={`/decks/${deck.id}`}>
-                        <Button variant='primary'>Edit Deck</Button>
-                    </Link>
-                )}
+                <Link  to={`/decks/${deck.id}`}>
+                    <Button variant='primary'>View Deck</Button>
+                </Link>
 
             </div>
         </div>

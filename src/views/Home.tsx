@@ -17,7 +17,7 @@ type HomeProps = {
 export default function Home({ isLoggedIn, user, flashMessage }: HomeProps) {
     
     const [decks, setDecks] = useState<DeckType[]>([]);
-    const [newDeck, setNewDeck] = useState<Partial<DeckType>>({id: 1, name: ''})
+    const [newDeck, setNewDeck] = useState<Partial<DeckType>>({id: 1, name: '', mainDeck:'', extraDeck:"", sideDeck:""})
     const [displayForm, setDisplayForm] = useState(false);
 
     useEffect(() => {
@@ -47,12 +47,11 @@ export default function Home({ isLoggedIn, user, flashMessage }: HomeProps) {
         if (response.error){
             flashMessage(response.error, 'danger')
         } else {
-            setNewDeck({id: decks.length + 2, name: ''});
+            setNewDeck({id: decks.length + 2, name: '', mainDeck:'', extraDeck:"", sideDeck:""});
             flashMessage(`${newDeck.name} has been created`, 'primary');
             setDisplayForm(false);
         }
     }
-
 
     return (
         <>

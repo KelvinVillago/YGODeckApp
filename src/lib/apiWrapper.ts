@@ -37,7 +37,6 @@ type TokenType = {
     tokenExpiration: string
 }
 
-
 async function getAllDecks(): Promise<APIResponse<DeckType[]>> {
     let error;
     let data;
