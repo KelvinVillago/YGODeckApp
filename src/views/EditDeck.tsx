@@ -172,6 +172,32 @@ export default function EditDeck({ flashMessage, currentUser }: EditDeckProps) {
         }
     }
 
+    
+    const downloadTxtFile = () => {
+        const textDownload = [`#created by ${deckToEdit?.creator.username}\n`, '#main\n']
+        for(let i of mainCards){
+            textDownload.push(i + '\n');
+        }
+        textDownload.push('#extra\n')
+        for(let i of extraCards){
+            textDownload.push(i + '\n');
+        }
+        textDownload.push('!side\n')
+        for(let i of sideCards){
+            textDownload.push(i + '\n');
+        }
+
+        const file = new Blob(textDownload, {type: 'text/plain'})
+        
+        const element = document.createElement('a')
+        element.href = URL.createObjectURL(file)
+        element.download = `${deckToEdit?.name}.ydk`
+
+        document.body.appendChild(element);
+        element.click();
+    }
+
+
     return (
         <>
             <h1 className="text-center title">{view ? 'View' : 'Edit'} '{deckToEdit?.name}'</h1>
@@ -213,6 +239,11 @@ export default function EditDeck({ flashMessage, currentUser }: EditDeckProps) {
                     <div className='col-12'>
                         <Card>
                             <Card.Body>
+                                <div className='row'>
+                                    <Button id='download-btn' onClick={downloadTxtFile} value={'download'}>
+                                        Download File
+                                    </Button>
+                                </div>
                                 <div className='row'>
                                     <p>Main Deck</p>
                                     {mainCards.length ? mainCards.map(( (p,i) => <AddCard card={p} key={i}/> )) : <p>There are no cards in the main deck</p>}
