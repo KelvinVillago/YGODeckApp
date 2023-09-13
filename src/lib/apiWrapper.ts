@@ -1,13 +1,35 @@
 import axios from 'axios';
 import DeckType from '../types/deck';
 import UserType from '../types/auth';
+import CardType from '../types/card';
 
 const base: string = 'https://ygo-deck-editor.onrender.com/api';
+const cardApi:string = 'https://db.ygoprodeck.com/api/v7/cardinfo.php?name=}'
 // const base: string = 'http://localhost:8080/api';
 const deckEndpoint: string = '/decks';
 const userEndpoint: string = '/users';
 const tokenEndpoint: string = '/token';
 
+const apiClientCard = () => axios.create({
+    baseURL: cardApi
+})
+
+async function getCardByName(name:string): Promise<APIResponse<CardType>> {
+    let error;
+    let data;
+    name = name.replace(' ', '%20')
+    try{
+        const response = await apiClientCard().get(deckEndpoint +  name);
+        data = response.data;
+    } catch(err){
+        if (axios.isAxiosError(err)){
+            error = err.response?.data.error
+        } else {
+            error = 'Something went wrong';
+        }
+    }
+    return {error, data}
+}
 
 const apiClientNoAuth = () => axios.create({
     baseURL: base
@@ -173,5 +195,6 @@ export {
     createDeck,
     getDeckById,
     editDeckById,
-    deleteDeckById
+    deleteDeckById,
+    getCardByName
 }
