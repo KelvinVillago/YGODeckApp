@@ -4,11 +4,12 @@ import UserType from '../types/auth';
 import CardType from '../types/card';
 
 const base: string = 'https://ygo-deck-editor.onrender.com/api';
-const cardApi:string = 'https://db.ygoprodeck.com/api/v7/cardinfo.php?name=}'
+const cardApi:string = 'https://db.ygoprodeck.com/api/v7'
 // const base: string = 'http://localhost:8080/api';
 const deckEndpoint: string = '/decks';
 const userEndpoint: string = '/users';
 const tokenEndpoint: string = '/token';
+const cardEndpoint = '/cardinfo.php?name='
 
 const apiClientCard = () => axios.create({
     baseURL: cardApi
@@ -19,7 +20,7 @@ async function getCardByName(name:string): Promise<APIResponse<CardType>> {
     let data;
     name = name.replace(' ', '%20')
     try{
-        const response = await apiClientCard().get(deckEndpoint +  name);
+        const response = await apiClientCard().get(cardEndpoint + name);
         data = response.data;
     } catch(err){
         if (axios.isAxiosError(err)){
