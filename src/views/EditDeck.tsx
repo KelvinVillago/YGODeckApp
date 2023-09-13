@@ -40,6 +40,10 @@ export default function EditDeck({ flashMessage, currentUser }: EditDeckProps) {
 
     const [gotCards, setGotCards] = useState(false)
 
+    const [mainCards, setMainCards] = useState<string[]>(deckToEdit?.mainDeck.split(',') || [])
+    const [extraCards, setExtraCards] = useState<string[]>(deckToEdit?.extraDeck.split(',') || [])
+    const [sideCards, setSideCards] = useState<string[]>(deckToEdit?.sideDeck.split(',') || [])
+
     let view:boolean = true
 
     if(currentUser && deckToEdit){
@@ -57,7 +61,15 @@ export default function EditDeck({ flashMessage, currentUser }: EditDeckProps) {
             }
         }
         getDeck();
-        console.log(deckToEdit)
+        console.log('Deck: ', deckToEdit)
+        if(deckToEdit){
+            setMainCards(deckToEdit!.mainDeck.split(','))
+            console.log('Main Deck: ', mainCards)
+            setExtraCards(deckToEdit!.extraDeck.split(','))
+            console.log('Extra Deck: ', extraCards)
+            setSideCards(deckToEdit!.sideDeck.split(','))
+            console.log('Side Deck: ', sideCards)
+        } 
     }, [flashMessage, navigate, deckId])
 
     useEffect(() => {
@@ -117,11 +129,35 @@ export default function EditDeck({ flashMessage, currentUser }: EditDeckProps) {
                 let newDeck:Partial<DeckType> = deckToEdit!
                 console.log('Type: ', cardRes?.data[0].type)
                 if(mainDeck.includes(cardRes?.data[0].type)){
-                    newDeck.mainDeck += cardRes?.data[0].id.toString() + ','
-                    console.log('added')
+                    let main = newDeck.mainDeck?.split(',')
+                    if(main?.length! < 60){
+                        newDeck.mainDeck += cardRes?.data[0].id.toString() + ','
+                        flashMessage(`${cardRes?.data[0].name} added to main deck`, 'success')
+                        setMainCards(newDeck.mainDeck?.split(',') || [])
+                    }
+                    else{
+                        flashMessage('Your main deck must be less than 60 cards', 'warning')
+                        let side = newDeck.sideDeck?.split(',')
+                        if(side?.length! < 15){
+                            newDeck.mainDeck += cardRes?.data[0].id.toString() + ','
+                            flashMessage(`${cardRes?.data[0].name} added to side deck`, 'success')
+                            setSideCards(newDeck.sideDeck?.split(',') || [])
+                        }
+                        else{
+                            flashMessage('Your side and main decks are full. Cannot add card', 'warning')
+                        }
+                    }
                 }
                 else if(extraDeck.includes(cardRes?.data[0].type)){
-                    newDeck.extraDeck += cardRes?.data[0].id.toString() + ','
+                    let extra = newDeck.extraDeck?.split(',')
+                    if(extra?.length! < 15){
+                        newDeck.extraDeck += cardRes?.data[0].id.toString() + ','
+                        flashMessage(`${cardRes?.data[0].name} added to extra deck`, 'success')
+                        setExtraCards(newDeck.extraDeck?.split(',') || [])
+                    }
+                    else{
+                        flashMessage('Your extra deck must be less than 15 cards', 'warning')
+                    }
                 }
                 console.log('Deck: ', newDeck)
                 const response2 = await editDeckById(localStorage.getItem('token') || '', deckId!, newDeck as DeckType)
@@ -149,8 +185,7 @@ export default function EditDeck({ flashMessage, currentUser }: EditDeckProps) {
                                     <Form.Control name='name' value={deckToEdit?.name} onChange={handleInputChange} />
                                     <div className='row'>
                                         <p>Deck</p>
-                                        {deckToEdit.mainDeck == '' && <p>There are no cards in the main deck</p>}
-                                        {deckToEdit.mainDeck != '' && <p>Main Deck: {deckToEdit.mainDeck}</p>}
+                                        {deckToEdit.mainDeck == '' ? <p>There are no cards in the main deck</p> : mainCards.map(( p => <AddCard card={p} /> ))}
                                         {deckToEdit.extraDeck == '' && <p>There are no cards in the extra deck</p>}
                                         {deckToEdit.sideDeck == '' && <p>There are no cards in the side deck</p>}
                                     </div>
@@ -166,7 +201,6 @@ export default function EditDeck({ flashMessage, currentUser }: EditDeckProps) {
                                 <Form onSubmit={handleCardFormSubmit}>
                                     <Form.Label>Find Card</Form.Label>
                                     <Form.Control name='name' value={card!} onChange={handleCardInputChange} />
-
                                     <Button variant='success' className='mt-3 w-100' type='submit' onClick={openCards}>Search</Button>
                                 </Form>
                             </Card.Body>
@@ -180,12 +214,15 @@ export default function EditDeck({ flashMessage, currentUser }: EditDeckProps) {
                         <Card>
                             <Card.Body>
                                 <div className='row'>
-                                    <p>Deck</p>
-                                    {deckToEdit.mainDeck == '' && <p>There are no cards in the main deck</p>}
-                                    {deckToEdit.mainDeck != '' && <p>Main Deck: {deckToEdit.mainDeck}</p>}
+                                    <p>Main Deck</p>
+                                    {mainCards.length ? mainCards.map(( (p,i) => <AddCard card={p} key={i}/> )) : <p>There are no cards in the main deck</p>}
+                                    
+                                    <p>Extra Deck</p>
+                                    {extraCards.length ? extraCards.map(( (p,i) => <AddCard card={p} key={i}/> )) : <p>There are no cards in the extra deck</p>}
 
-                                    {deckToEdit.extraDeck == '' && <p>There are no cards in the extra deck</p>}
-                                    {deckToEdit.sideDeck == '' && <p>There are no cards in the side deck</p>}
+                                    <p>Side Deck</p>
+                                    {sideCards.length ? sideCards.map(( (p,i) => <AddCard card={p} key={i}/> )) : <p>There are no cards in the side deck</p>}
+
                                 </div>
                             </Card.Body>
                         </Card>

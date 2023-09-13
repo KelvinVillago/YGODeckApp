@@ -7,7 +7,8 @@ type CardType = {
     race:string,
     card_images:[{
         image_url:string
-    }]
+    }],
+    data?:any
 }
 
 export default CardType

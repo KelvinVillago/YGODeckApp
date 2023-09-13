@@ -10,6 +10,7 @@ const deckEndpoint: string = '/decks';
 const userEndpoint: string = '/users';
 const tokenEndpoint: string = '/token';
 const cardEndpoint = '/cardinfo.php?name='
+const cardIdEndpoint = '/cardinfo.php?id='
 
 const apiClientCard = () => axios.create({
     baseURL: cardApi
@@ -21,6 +22,22 @@ async function getCardByName(name:string): Promise<APIResponse<CardType>> {
     name = name.replace(' ', '%20')
     try{
         const response = await apiClientCard().get(cardEndpoint + name);
+        data = response.data;
+    } catch(err){
+        if (axios.isAxiosError(err)){
+            error = err.response?.data.error
+        } else {
+            error = 'Something went wrong';
+        }
+    }
+    return {error, data}
+}
+
+async function getCardById(id:string): Promise<APIResponse<CardType>> {
+    let error;
+    let data;
+    try{
+        const response = await apiClientCard().get(cardIdEndpoint + id);
         data = response.data;
     } catch(err){
         if (axios.isAxiosError(err)){
@@ -197,5 +214,6 @@ export {
     getDeckById,
     editDeckById,
     deleteDeckById,
-    getCardByName
+    getCardByName,
+    getCardById
 }
