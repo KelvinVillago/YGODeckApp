@@ -1,16 +1,14 @@
 // import Card from 'react-bootstrap/Card';
-import UserType from "../types/auth"
 import DeckType from "../types/deck"
 import Button from "react-bootstrap/Button"
 import { Link } from "react-router-dom"
 
 
 type DeckCardProps = {
-    deck: DeckType,
-    currentUser:UserType|null
+    deck: DeckType
 }
 
-export default function DeckCard({ deck, currentUser }: DeckCardProps) {
+export default function DeckCard({ deck }: DeckCardProps) {
     return (
         <div className="col-6">  
             <div className="deck-card text-center">

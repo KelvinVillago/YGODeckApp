@@ -61,7 +61,7 @@ export default function Home({ isLoggedIn, user, flashMessage }: HomeProps) {
                 <DeckForm handleChange={handleInputChange} handleSubmit={handleFormSubmit} newDeck={newDeck} isLoggedIn={isLoggedIn}/>
             )}
             <div className='row'>
-                {decks.map( p => <DeckCard deck={p}  key={p.id} currentUser={user} /> )}
+                {decks.map( p => <DeckCard deck={p}  key={p.id} /> )}
             </div>
         </>
     )

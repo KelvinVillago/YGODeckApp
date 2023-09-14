@@ -3,11 +3,15 @@ type AddCardProps = {
 }
 
 export default function AddCard({ card }: AddCardProps) {
-    return (
-        <div className="col-2">  
-            <div>
-                {card != '' && <img src={`/images/pics/${card}.jpg`}></img>}
+    
+    if(card != ''){
+        return (
+            <div className="col-2">  
+                <div>
+                    {card != '' && <img src={`/images/pics/${card}.jpg`} className="ygo-card"></img>}
+                </div>
             </div>
-        </div>
-    )
+        )
+    }
+    
 }

@@ -8,7 +8,6 @@ import { getDeckById, editDeckById, deleteDeckById, getCardByName } from '../lib
 import CategoryType from '../types/category';
 import DeckType from '../types/deck';
 import UserType from '../types/auth';
-import CardType from '../types/card';
 import AddCard from '../components/AddCard';
 
 type EditDeckProps = {
@@ -18,8 +17,7 @@ type EditDeckProps = {
 
 export default function EditDeck({ flashMessage, currentUser }: EditDeckProps) {
     const mainDeck = ['Effect Monster', 'Normal Monster', 'Spell Card', 'Trap Card', 'Ritual Monster', 'Ritual Effect Monster', 'Pendulum Normal Monster', 'Pendulum Effect Monster']
-    const extraDeck = ['Fusion Monster', 'Synchro Monster', 'XYZ Monster']
-
+    const extraDeck = ['Fusion Monster', 'Synchro Monster', 'XYZ Monster', 'Link Monster']
 
     const { deckId } = useParams();
     const navigate = useNavigate();
@@ -29,28 +27,17 @@ export default function EditDeck({ flashMessage, currentUser }: EditDeckProps) {
     const [showModal, setShowModal] = useState(false);
     const openModal = () => setShowModal(true);
     const closeModal = () => setShowModal(false);
-    
-    const [showCards, setShowCards] = useState(false);
-    const openCards = () => setShowCards(true);
-    const closeCards = () => setShowCards(false);
-
 
     const [card, setCard] = useState<string>("");
-    const [cardRes, setCardRes] = useState<CardType|null>(null);
 
-    const [gotCards, setGotCards] = useState(false)
-
-    const [mainCards, setMainCards] = useState<string[]>(deckToEdit?.mainDeck.split(',') || [])
-    const [extraCards, setExtraCards] = useState<string[]>(deckToEdit?.extraDeck.split(',') || [])
-    const [sideCards, setSideCards] = useState<string[]>(deckToEdit?.sideDeck.split(',') || [])
+    const [mainCards, setMainCards] = useState<string[]>([])
+    const [extraCards, setExtraCards] = useState<string[]>([])
+    const [sideCards, setSideCards] = useState<string[]>([])
 
     let view:boolean = true
 
-    if(currentUser && deckToEdit){
-        view = deckToEdit!.user_id !== currentUser?.id
-    }
-
     useEffect(() => {
+        console.log('running effect 1')
         async function getDeck(){
             let response = await getDeckById(deckId!);
             if (response.error){
@@ -58,25 +45,29 @@ export default function EditDeck({ flashMessage, currentUser }: EditDeckProps) {
                 navigate('/');
             } else {
                 setDeckToEdit(response.data!);
+                if(response.data){
+                    setMainCards(response.data!.mainDeck.split(','))
+                    console.log('Main Deck: ', mainCards)
+                    setExtraCards(response.data!.extraDeck.split(','))
+                    console.log('Extra Deck: ', extraCards)
+                    setSideCards(response.data!.sideDeck.split(','))
+                    console.log('Side Deck: ', sideCards)
+
+                }
             }
         }
         getDeck();
-        console.log('Deck: ', deckToEdit)
-        if(deckToEdit){
-            setMainCards(deckToEdit!.mainDeck.split(','))
-            console.log('Main Deck: ', mainCards)
-            setExtraCards(deckToEdit!.extraDeck.split(','))
-            console.log('Extra Deck: ', extraCards)
-            setSideCards(deckToEdit!.sideDeck.split(','))
-            console.log('Side Deck: ', sideCards)
-        } 
+        
     }, [flashMessage, navigate, deckId])
+
+    if(currentUser && deckToEdit){
+        view = deckToEdit!.user_id !== currentUser?.id
+    }
 
     useEffect(() => {
         if (deckToEdit){
             if (view){
                 flashMessage('You do not have permission to edit this deck. View Only', 'warning');
-                // navigate('/')
             }
         }
     })
@@ -109,70 +100,119 @@ export default function EditDeck({ flashMessage, currentUser }: EditDeckProps) {
     }
 
     const handleCardInputChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-        console.log(e.target.value)
         setCard(e.target.value)
+        console.log(e.target.value)
     }
 
     const handleCardFormSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setGotCards(false)
         const response = await getCardByName(card!);
         if (response.error){
             flashMessage(response.error, 'danger')
-        } else {
-            // flashMessage(`${response.data?.name} has been updated`, 'success')
-            // console.log(response.data)
+        } 
+        else {
             if(response.data){
-                // console.log(typeof response.data)
-                setCardRes(response.data)
-                console.log('Card: ', cardRes)
-                let newDeck:Partial<DeckType> = deckToEdit!
-                console.log('Type: ', cardRes?.data[0].type)
-                if(mainDeck.includes(cardRes?.data[0].type)){
-                    let main = newDeck.mainDeck?.split(',')
-                    if(main?.length! < 60){
-                        newDeck.mainDeck += cardRes?.data[0].id.toString() + ','
-                        flashMessage(`${cardRes?.data[0].name} added to main deck`, 'success')
-                        setMainCards(newDeck.mainDeck?.split(',') || [])
+                let cardResponse = response.data
+                console.log('Card: ', response.data)
+                let newDeck:Partial<DeckType> = {...deckToEdit!}
+                if(mainDeck.includes(cardResponse.data[0].type)){
+                    if(mainCards.length! < 60){
+                        // setMainCards([...mainCards, cardResponse.data[0].id.toString()])
+                        flashMessage(`${cardResponse.data[0].name} added to main deck`, 'success')
+                        newDeck.mainDeck = [...mainCards, cardResponse.data[0].id.toString()].toString()
                     }
                     else{
                         flashMessage('Your main deck must be less than 60 cards', 'warning')
                         let side = newDeck.sideDeck?.split(',')
                         if(side?.length! < 15){
-                            newDeck.mainDeck += cardRes?.data[0].id.toString() + ','
-                            flashMessage(`${cardRes?.data[0].name} added to side deck`, 'success')
-                            setSideCards(newDeck.sideDeck?.split(',') || [])
+                            // setSideCards([...sideCards, cardRes?.data[0].id.toString()])
+                            flashMessage(`${cardResponse.data[0].name} added to side deck`, 'success')
+                            newDeck.sideDeck = [...sideCards, cardResponse.data[0].id.toString()].toString()
                         }
                         else{
                             flashMessage('Your side and main decks are full. Cannot add card', 'warning')
                         }
                     }
                 }
-                else if(extraDeck.includes(cardRes?.data[0].type)){
+                else if(extraDeck.includes(cardResponse.data[0].type)){
                     let extra = newDeck.extraDeck?.split(',')
                     if(extra?.length! < 15){
-                        newDeck.extraDeck += cardRes?.data[0].id.toString() + ','
-                        flashMessage(`${cardRes?.data[0].name} added to extra deck`, 'success')
-                        setExtraCards(newDeck.extraDeck?.split(',') || [])
+                        // setExtraCards([...extraCards, cardRes?.data[0].id.toString()])
+                        flashMessage(`${cardResponse.data[0].name} added to extra deck`, 'success')
+                        newDeck.extraDeck = [...extraCards, cardResponse.data[0].id.toString()].toString()
+                        // newDeck.extraDeck = extraCards.toString()
                     }
                     else{
                         flashMessage('Your extra deck must be less than 15 cards', 'warning')
                     }
                 }
-                console.log('Deck: ', newDeck)
+                console.log("Edit: ", newDeck)
                 const response2 = await editDeckById(localStorage.getItem('token') || '', deckId!, newDeck as DeckType)
                 if(response2.error){
                     flashMessage(response2.error, 'danger')
                 }
                 else{
-                    flashMessage(`${deckToEdit?.name}} has been updated`, 'success')
-                    console.log(deckToEdit)
+                    flashMessage(`${deckToEdit?.name} has been updated`, 'success')
                 }
             }
         }
+        setCard("")
     }
 
-    
+    const deleteCards = async () => {
+        const response = await getCardByName(card!);
+        if (response.error){
+            flashMessage(response.error, 'danger')
+        } else {
+            if(response.data){
+                let cardResponse = response.data
+                console.log('Card: ', response.data)
+                let newDeck:Partial<DeckType> = {...deckToEdit!}
+                let cardId = cardResponse.data[0].id.toString()
+                let mainDeck = newDeck.mainDeck?.split(',');
+                let sideDeck = newDeck.mainDeck?.split(',');
+                let extraDeck = newDeck.mainDeck?.split(',');
+
+                if(mainDeck?.includes(cardId)){
+                    // filter out id of card
+                    const ind = mainDeck.indexOf(cardId, 0)
+                    mainDeck.splice(ind, 1)
+
+                    // set main again
+                    newDeck.mainDeck = mainDeck.toString()
+                    flashMessage(`${cardResponse.data[0].name} has been removed from main deck`, 'warning')
+                }
+                else if(sideDeck?.includes(cardId)){
+                    // filter out id of card
+                    const ind = sideDeck.indexOf(cardId, 0)
+                    sideDeck.splice(ind, 1)
+
+                    // set main again
+                    newDeck.sideDeck = sideDeck.toString()
+                    flashMessage(`${cardResponse.data[0].name} has been removed from main deck`, 'warning')
+                }
+                else if(extraDeck?.includes(cardId)){
+                    // filter out id of card
+                    const ind = extraDeck.indexOf(cardId, 0)
+                    extraDeck.splice(ind, 1)
+
+                    // set main again
+                    newDeck.extraDeck = extraDeck.toString()
+                    flashMessage(`${cardResponse.data[0].name} has been removed from main deck`, 'warning')
+
+                }
+                const response2 = await editDeckById(localStorage.getItem('token') || '', deckId!, newDeck as DeckType)
+                if(response2.error){
+                    flashMessage(response2.error, 'danger')
+                }
+                else{
+                    flashMessage(`${deckToEdit?.name} has been updated`, 'success')
+                }
+            }
+        }
+        setCard("")
+    }
+
     const downloadTxtFile = () => {
         const textDownload = [`#created by ${deckToEdit?.creator.username}\n`, '#main\n']
         for(let i of mainCards){
@@ -197,7 +237,6 @@ export default function EditDeck({ flashMessage, currentUser }: EditDeckProps) {
         element.click();
     }
 
-
     return (
         <>
             <h1 className="text-center title">{view ? 'View' : 'Edit'} '{deckToEdit?.name}'</h1>
@@ -207,13 +246,24 @@ export default function EditDeck({ flashMessage, currentUser }: EditDeckProps) {
                         <Card>
                             <Card.Body>
                                 <Form onSubmit={handleFormSubmit}>
+                                    <div className='row'>
+                                        <Button id='download-btn' onClick={downloadTxtFile} value={'download'}>
+                                            Download File
+                                        </Button>
+                                    </div>
                                     <Form.Label>Edit Deck Title</Form.Label>
                                     <Form.Control name='name' value={deckToEdit?.name} onChange={handleInputChange} />
+                                    
                                     <div className='row'>
-                                        <p>Deck</p>
-                                        {deckToEdit.mainDeck == '' ? <p>There are no cards in the main deck</p> : mainCards.map(( p => <AddCard card={p} /> ))}
-                                        {deckToEdit.extraDeck == '' && <p>There are no cards in the extra deck</p>}
-                                        {deckToEdit.sideDeck == '' && <p>There are no cards in the side deck</p>}
+                                        <p>Main Deck</p>
+                                        {mainCards.length ? mainCards.map(( (p,i) => <AddCard card={p} key={i}/> )) : <p>There are no cards in the main deck</p>}
+                                        
+                                        <p>Extra Deck</p>
+                                        {extraCards.length ? extraCards.map(( (p,i) => <AddCard card={p} key={i}/> )) : <p>There are no cards in the extra deck</p>}
+
+                                        <p>Side Deck</p>
+                                        {sideCards.length > 0? sideCards.map(( (p,i) => <AddCard card={p} key={i}/> )) : <p>There are no cards in the side deck</p>}
+
                                     </div>
                                     {!view && <Button variant='success' className='mt-3 w-50' type='submit'>Done</Button>}
                                     {!view && <Button variant='danger' className='mt-3 w-50' onClick={openModal}>Delete Deck</Button>}
@@ -227,7 +277,8 @@ export default function EditDeck({ flashMessage, currentUser }: EditDeckProps) {
                                 <Form onSubmit={handleCardFormSubmit}>
                                     <Form.Label>Find Card</Form.Label>
                                     <Form.Control name='name' value={card!} onChange={handleCardInputChange} />
-                                    <Button variant='success' className='mt-3 w-100' type='submit' onClick={openCards}>Search</Button>
+                                    <Button variant='success' className='mt-3 w-50' type='submit'>Search</Button>
+                                    <Button variant='danger' className='mt-3 w-50' type='button' onClick={deleteCards}>Delete</Button>
                                 </Form>
                             </Card.Body>
                         </Card>
@@ -272,7 +323,6 @@ export default function EditDeck({ flashMessage, currentUser }: EditDeckProps) {
                     <Button variant="danger" onClick={handleDeleteDeck}>Delete Deck</Button>
                 </Modal.Footer>
             </Modal>
-
         </>
     )
 }
