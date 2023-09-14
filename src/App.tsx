@@ -33,19 +33,6 @@ export default function App() {
         }
     }, [isLoggedIn])
 
-    // useEffect(() => {
-    //     if (isLoggedIn){
-    //         const now = new Date()
-    //         const exp = new Date(localStorage.getItem('tokenExp') || '');
-    //         if (new Date(now.setMinutes(now.getMinutes() + 5)) > exp){
-    //             flashMessage('You will be logged out in less than 5 minutes', 'danger');
-    //         }
-    //         if (new Date() > new Date(exp)){
-    //             logUserOut();
-    //         }
-    //     }
-    // })
-
     const [message, setMessage] = useState<string|null>(null);
     const [category, setCategory] = useState<CategoryType|null>(null);
 

@@ -1,27 +1,15 @@
-# React + TypeScript + Vite
+# Yu-Gi-Oh Deck Application
+Create your own decks using cards from the official Yu-Gi-Oh trading card game. Register or log in to save your decks to a database to access anywherr.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Databases
+Flask application to create database for users and decks. The User database stores first and last names, usernames, and emails. The Deck database stores the name of the deck as well as its main, side, and extra decks.
+* https://ygo-deck-editor.onrender.com - The Flask application hosted on Render.com. Having the Flask application hosted online allows for anyone to access the database
+* https://github.com/KelvinVillago/YGODeckEditor - Github link to the Flask application. Details the methods for the api and what routes are available.
 
-Currently, two official plugins are available:
+### API
+I primarily used the YGOProDeck API for card information. They have put a lot of work into their API and it can give details on a card's name, description, type, race, attribute, atk, def, and a lot more. 
+* https://ygoprodeck.com/api-guide/ - Link to a guide for the YGOProDeck API. This details all the routes for the API as well as what parameters can be used as keys to search the API. I mainly used the API to search for card info by name and ID to get card images and ids to add to the deck database
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Description
+This application allows for users to create and log into an account on the app. A logged in user is allowed to create and edit a deck. For editing a deck, the user needs to search a specific card name and it will be added to the deck. The deck display will show a picture of all cards in the main, extra, and side decks. Any user logged in or not is able to view all decks on the app and download the ydk file if needed.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
