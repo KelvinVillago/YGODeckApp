@@ -14,7 +14,7 @@ export default function DeckForm({ handleChange, handleSubmit, newDeck, isLogged
     return (
         <Form onSubmit={handleSubmit} className='deck-form'>
             <Form.Label>Deck Title</Form.Label>
-            <Form.Control name='name' onChange={handleChange} value={newDeck.name} placeholder="Enter Deck Name" />
+            <Form.Control name='name' onChange={handleChange} value={newDeck.name} placeholder="Enter Deck Name" className='user-form-input'/>
             {/* <Form.Label>Deck Body</Form.Label> */}
             {/* <Form.Control name='body' as='textarea' onChange={handleChange} value={newDeck.body} placeholder="Enter Deck Body" /> */}
             <Button className='mt-3 w-100 submit-btn' variant='warning' type='submit' disabled={!isLoggedIn}>Create Deck</Button>

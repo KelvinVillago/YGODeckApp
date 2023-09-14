@@ -1,15 +1,24 @@
 .deck-card{
-  background-color: rgb(114, 114, 114);
+  background-color: rgba(39, 39, 39, 0.8);
   border: none;
   padding: 1rem;
   margin:10px;
   border-radius: 25px;
   box-shadow: 5px 5px 10px 5px rgb(37, 37, 37);
   font-family: 'Poiret One', cursive;
+  color: rgb(225, 225, 225);
+}
+
+html{
+  background: url("../public/background.jpg") center center fixed no-repeat;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
 }
 
 body{
-  background-color: lightgray
+  background: none;
 }
 
 .deck-card-img{
@@ -56,10 +65,48 @@ body{
   font-size: 8vh;
   padding: 3%;
   font-family: 'Poiret One', cursive;
+  color: rgb(202, 202, 202);
 }
 
 .ygo-card{
   padding: 0;
   margin: 0;
   width: 100%;
+}
+
+.editor{
+  background-color: rgba(146, 146, 146, 0.8);
+  padding: 2%;
+  margin-top: 3vh;
+  margin-bottom: 10vh;
+}
+
+.deck{
+  background: none;
+  border: none;
+  padding: 2%;
+  margin-top: 0;
+}
+
+.user-form{
+  background-color: rgba(39, 39, 39, 0.8);
+  border: none;
+  padding: 1rem;
+  margin:10px;
+  border-radius: 25px;
+  box-shadow: 5px 5px 10px 5px rgb(37, 37, 37);
+  font-family: 'Poiret One', cursive;
+  color: rgb(225, 225, 225);
+}
+
+.user-form-input, .user-form-input::placeholder{
+  background-color: rgb(75, 75, 75);
+  color:rgb(215, 215, 215);
+  border:none;
+}
+
+.user-form-input:active, .user-form-input:focus, .user-form-input:valid, .user-form-input:-webkit-autofill{
+  background-color: rgb(75, 75, 75);
+  color:rgb(215, 215, 215);
+  border:none;
 }

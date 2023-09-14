@@ -8,7 +8,7 @@ export default function AddCard({ card }: AddCardProps) {
         return (
             <div className="col-2">  
                 <div>
-                     && <img src={`/images/pics/${card}.jpg`} className="ygo-card"></img>
+                     <img src={`/images/pics/${card}.jpg`} className="ygo-card"></img>
                 </div>
             </div>
         )

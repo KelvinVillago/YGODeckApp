@@ -56,26 +56,26 @@ export default function Register({ logUserIn,flashMessage }: RegisterProps) {
     return (
         <>
             <h1 className="text-center title">Register</h1>
-            <Card className='mt-3'>
+            <Card className='mt-3 user-form'>
                 <Card.Body>
                     <Form onSubmit={handleFormSubmit}>
                         <Form.Label>First Name</Form.Label>
-                        <Form.Control name='firstName' value={userFormData.firstName} onChange={handleInputChange} />
+                        <Form.Control name='firstName' value={userFormData.firstName} onChange={handleInputChange} className='user-form-input' placeholder='Enter First Name'/>
 
                         <Form.Label>Last Name</Form.Label>
-                        <Form.Control name='lastName' value={userFormData.lastName} onChange={handleInputChange} />
+                        <Form.Control name='lastName' value={userFormData.lastName} onChange={handleInputChange} className='user-form-input' placeholder='Enter Last Name'/>
 
                         <Form.Label>Email</Form.Label>
-                        <Form.Control name='email' type='email' value={userFormData.email} onChange={handleInputChange} />
+                        <Form.Control name='email' type='email' value={userFormData.email} onChange={handleInputChange} className='user-form-input' placeholder='Enter Username' />
 
                         <Form.Label>Username</Form.Label>
-                        <Form.Control name='username' value={userFormData.username} onChange={handleInputChange} />
+                        <Form.Control name='username' value={userFormData.username} onChange={handleInputChange} className='user-form-input' placeholder='Enter Email' />
 
                         <Form.Label>Password</Form.Label>
-                        <Form.Control name='password' type='password' value={userFormData.password} onChange={handleInputChange} placeholder='Password must be at least 8 characters long'/>
+                        <Form.Control name='password' type='password' value={userFormData.password} onChange={handleInputChange} placeholder='Password must be at least 8 characters long' className='user-form-input'/>
                         
                         <Form.Label>Confirm Password</Form.Label>
-                        <Form.Control name='confirmPassword' type='password' value={userFormData.confirmPassword} onChange={handleInputChange} placeholder='Password must match above password'/>
+                        <Form.Control name='confirmPassword' type='password' value={userFormData.confirmPassword} onChange={handleInputChange} placeholder='Password must match above password' className='user-form-input'/>
 
                         <Button type='submit' variant='outline-success' className='w-100 mt-3' disabled={!validPasswords}>Register</Button>
                         {!validPasswords && <Form.Text className='text-danger'>Your password must be at least 8 characters long and must match</Form.Text>}

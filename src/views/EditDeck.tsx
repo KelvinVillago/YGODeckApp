@@ -242,8 +242,8 @@ export default function EditDeck({ flashMessage, currentUser }: EditDeckProps) {
             <h1 className="text-center title">{view ? 'View' : 'Edit'} '{deckToEdit?.name}'</h1>
             {deckToEdit && !view && (
                 <div className='row'>
-                    <div className='col-8'>
-                        <Card>
+                    <div className='col-8 editor'>
+                        <Card className='deck'>
                             <Card.Body>
                                 <Form onSubmit={handleFormSubmit}>
                                     <div className='row'>
@@ -252,7 +252,7 @@ export default function EditDeck({ flashMessage, currentUser }: EditDeckProps) {
                                         </Button>
                                     </div>
                                     <Form.Label>Edit Deck Title</Form.Label>
-                                    <Form.Control name='name' value={deckToEdit?.name} onChange={handleInputChange} />
+                                    <Form.Control name='name' value={deckToEdit?.name} onChange={handleInputChange} className='user-form-input'/>
                                     
                                     <div className='row'>
                                         <p>Main Deck</p>
@@ -271,12 +271,12 @@ export default function EditDeck({ flashMessage, currentUser }: EditDeckProps) {
                             </Card.Body>
                         </Card>
                     </div>
-                    <div className='col-4'>
-                        <Card>
+                    <div className='col-4 editor'>
+                        <Card className='deck'>
                             <Card.Body>
                                 <Form onSubmit={handleCardFormSubmit}>
                                     <Form.Label>Find Card</Form.Label>
-                                    <Form.Control name='name' value={card!} onChange={handleCardInputChange} />
+                                    <Form.Control name='name' value={card!} onChange={handleCardInputChange} className='user-form-input'/>
                                     <Button variant='success' className='mt-3 w-50' type='submit'>Search</Button>
                                     <Button variant='danger' className='mt-3 w-50' type='button' onClick={deleteCards}>Delete</Button>
                                 </Form>
@@ -287,8 +287,8 @@ export default function EditDeck({ flashMessage, currentUser }: EditDeckProps) {
             )}
             {deckToEdit && view && (
                 <div className='row'>
-                    <div className='col-12'>
-                        <Card>
+                    <div className='col-12 editor'>
+                        <Card className='deck'>
                             <Card.Body>
                                 <div className='row'>
                                     <Button id='download-btn' onClick={downloadTxtFile} value={'download'}>

@@ -47,13 +47,13 @@ export default function Login({ isLoggedIn, logUserIn, flashMessage }: LoginProp
     return (
         <>
             <h1 className='text-center title'>Log In</h1>
-            <Card className='mt-3'>
+            <Card className='mt-3 user-form'>
                 <Card.Body>
                     <Form onSubmit={handleFormSubmit}>
                         <Form.Label>Username</Form.Label>
-                        <Form.Control name='username' value={user.username} onChange={handleInputChange} />
+                        <Form.Control name='username' value={user.username} onChange={handleInputChange} className='user-form-input' placeholder='Enter Username'/>
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type='password' name='password' value={user.password} onChange={handleInputChange} />
+                        <Form.Control type='password' name='password' value={user.password} onChange={handleInputChange}  className='user-form-input' placeholder='Enter Password'/>
                         <Button type='submit' variant='outline-primary' className='w-100 mt-3' disabled={!validPassword(user.password!)}>Log In</Button>
                     </Form>
                 </Card.Body>

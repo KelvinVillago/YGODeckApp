@@ -1,5 +1,5 @@
 # Yu-Gi-Oh Deck Application
-Create your own decks using cards from the official Yu-Gi-Oh trading card game. Register or log in to save your decks to a database to access anywherr.
+Create your own decks using cards from the official Yu-Gi-Oh trading card game. Register or log in to save your decks to a database to access anywhere.
 
 ### Databases
 Flask application to create database for users and decks. The User database stores first and last names, usernames, and emails. The Deck database stores the name of the deck as well as its main, side, and extra decks.
