@@ -247,21 +247,21 @@ export default function EditDeck({ flashMessage, currentUser }: EditDeckProps) {
                             <Card.Body>
                                 <Form onSubmit={handleFormSubmit}>
                                     <div className='row'>
-                                        <Button id='download-btn' onClick={downloadTxtFile} value={'download'}>
+                                        <Button className="view-btn" id='download-btn' onClick={downloadTxtFile} value={'download'}>
                                             Download File
                                         </Button>
                                     </div>
-                                    <Form.Label>Edit Deck Title</Form.Label>
+                                    <Form.Label className='mt-5'>Edit Deck Title</Form.Label>
                                     <Form.Control name='name' value={deckToEdit?.name} onChange={handleInputChange} className='user-form-input'/>
                                     
                                     <div className='row'>
-                                        <p>Main Deck</p>
+                                        <p className='label'>Main Deck</p>
                                         {mainCards.length ? mainCards.map(( (p,i) => <AddCard card={p} key={i}/> )) : <p>There are no cards in the main deck</p>}
                                         
-                                        <p>Extra Deck</p>
+                                        <p className='label'>Extra Deck</p>
                                         {extraCards.length ? extraCards.map(( (p,i) => <AddCard card={p} key={i}/> )) : <p>There are no cards in the extra deck</p>}
 
-                                        <p>Side Deck</p>
+                                        <p className='label'>Side Deck</p>
                                         {sideCards.length > 0? sideCards.map(( (p,i) => <AddCard card={p} key={i}/> )) : <p>There are no cards in the side deck</p>}
 
                                     </div>
@@ -291,18 +291,18 @@ export default function EditDeck({ flashMessage, currentUser }: EditDeckProps) {
                         <Card className='deck'>
                             <Card.Body>
                                 <div className='row'>
-                                    <Button id='download-btn' onClick={downloadTxtFile} value={'download'}>
+                                    <Button className="view-btn" id='download-btn' onClick={downloadTxtFile} value={'download'}>
                                         Download File
                                     </Button>
                                 </div>
                                 <div className='row'>
-                                    <p>Main Deck</p>
+                                    <p className='label'>Main Deck</p>
                                     {mainCards.length ? mainCards.map(( (p,i) => <AddCard card={p} key={i}/> )) : <p>There are no cards in the main deck</p>}
                                     
-                                    <p>Extra Deck</p>
+                                    <p className='label'>Extra Deck</p>
                                     {extraCards.length ? extraCards.map(( (p,i) => <AddCard card={p} key={i}/> )) : <p>There are no cards in the extra deck</p>}
 
-                                    <p>Side Deck</p>
+                                    <p className='label'>Side Deck</p>
                                     {sideCards.length ? sideCards.map(( (p,i) => <AddCard card={p} key={i}/> )) : <p>There are no cards in the side deck</p>}
 
                                 </div>

@@ -55,7 +55,7 @@ export default function Register({ logUserIn,flashMessage }: RegisterProps) {
 
     return (
         <>
-            <h1 className="text-center title">Register</h1>
+            <h1 className="text-center title">Sign Up</h1>
             <Card className='mt-3 user-form'>
                 <Card.Body>
                     <Form onSubmit={handleFormSubmit}>

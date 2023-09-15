@@ -5,12 +5,34 @@
   margin:10px;
   border-radius: 25px;
   box-shadow: 5px 5px 10px 5px rgb(37, 37, 37);
-  font-family: 'Poiret One', cursive;
+  font-family: 'Roboto Slab', serif;
   color: rgb(225, 225, 225);
 }
 
+.deck-card-img{
+  max-width:100%;
+  height: auto;
+}
+
+.deck-card-title{
+  font-size: 2.5em;
+  padding: 0.5em;
+}
+
+.deck-form{
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+}
+
+.deck{
+  background: none;
+  border: none;
+  padding: 2%;
+  margin-top: 0;
+}
+
 html{
-  background: url("../public/background.jpg") center center fixed no-repeat;
+  background: url("../background.jpg") center center fixed no-repeat;
   background-size: cover;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -21,16 +43,12 @@ body{
   background: none;
 }
 
-.deck-card-img{
-  max-width:100%;
-  height: auto;
-}
-
 .view-btn{
   position: relative;
   background-color: rgb(33, 88, 207);
   color:rgb(40, 40, 40);
   border: none;
+  margin-bottom: 3vh;
 }
 
 .view-btn:hover, .view-btn:focus{
@@ -55,16 +73,11 @@ body{
   color:rgb(40, 40, 40);
 }
 
-.deck-form{
-  margin-top: 5vh;
-  margin-bottom: 5vh;
-}
-
 .title{
-  margin-top: 3vh;
+  margin-top: 1em;
   font-size: 8vh;
   padding: 3%;
-  font-family: 'Poiret One', cursive;
+  font-family: 'Roboto Slab', serif;
   color: rgb(202, 202, 202);
 }
 
@@ -79,13 +92,7 @@ body{
   padding: 2%;
   margin-top: 3vh;
   margin-bottom: 10vh;
-}
-
-.deck{
-  background: none;
-  border: none;
-  padding: 2%;
-  margin-top: 0;
+  font-family: 'Roboto Slab', serif;
 }
 
 .user-form{
@@ -95,7 +102,7 @@ body{
   margin:10px;
   border-radius: 25px;
   box-shadow: 5px 5px 10px 5px rgb(37, 37, 37);
-  font-family: 'Poiret One', cursive;
+  font-family: 'Roboto Slab', serif;
   color: rgb(225, 225, 225);
 }
 
@@ -109,4 +116,31 @@ body{
   background-color: rgb(75, 75, 75);
   color:rgb(215, 215, 215);
   border:none;
+}
+
+.label{
+  margin-top: 3vh;
+  font-size: 2vh;
+}
+
+.nav-title{
+  font-size: 3vh;
+  padding: 0.5em;
+}
+
+.nav, .navbar-container{
+  font-size: 2vh;
+  background: rgb(2, 17, 22);
+  padding: 0.7em;
+}
+
+.navbar{
+  /* margin-bottom: 1.5em; */
+  padding: 0;
+}
+
+.nav-link{
+  font-size: 3vh;
+  color: rgb(94, 172, 250);
+  margin-bottom: 1em;
 }

@@ -13,10 +13,10 @@ export default function DeckCard({ deck }: DeckCardProps) {
         <div className="col-6">  
             <div className="deck-card text-center">
                 <div>
-                    <h3>{deck.name}</h3>
-                    <h5>By {deck.creator.username}</h5>
+                    <h3 className="deck-card-title">{deck.name}</h3>
+                    <h5 className="mt-3">By: {deck.creator.username}</h5>
                     <Link  to={`/decks/${deck.id}`}>
-                        <Button className="view-btn" variant='primary'>View Deck</Button>
+                        <Button className="view-btn mt-4 w-50" variant='primary'>View Deck</Button>
                     </Link>
                 </div>
             </div>
