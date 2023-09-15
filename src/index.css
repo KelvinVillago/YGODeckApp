@@ -63,13 +63,26 @@ body{
   background-color: rgb(33, 207, 56);
   color:rgb(40, 40, 40);
   border: none;
-  margin-top: 5vh;
 }
 
 .submit-btn:hover, .submit-btn:focus{
   box-shadow: 0.3em 0.3em 0.3em -0.1em rgb(4, 121, 17);
   transform: translateY(-0.05em);
   background-color: rgb(8, 148, 19);
+  color:rgb(40, 40, 40);
+}
+
+.delete-btn{
+  position: relative;
+  background-color: rgb(246, 46, 46);
+  color:rgb(40, 40, 40);
+  border: none;
+}
+
+.delete-btn:hover, .delete-btn:focus{
+  box-shadow: 0.3em 0.3em 0.3em -0.1em rgb(146, 17, 5);
+  transform: translateY(-0.05em);
+  background-color: rgb(148, 8, 8);
   color:rgb(40, 40, 40);
 }
 
@@ -143,4 +156,16 @@ body{
   font-size: 3vh;
   color: rgb(94, 172, 250);
   margin-bottom: 1em;
+}
+
+.create-card{
+  background-color: rgba(39, 39, 39, 0.8);
+  padding: 5%;
+  color: rgb(225, 225, 225);
+  border-radius: 30px 0px 30px 0px;
+  box-shadow: 5px 5px 10px 5px rgb(22, 6, 146);
+}
+
+.create-title{
+  font-size: 3vh;
 }

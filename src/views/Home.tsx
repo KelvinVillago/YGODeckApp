@@ -6,7 +6,7 @@ import CategoryType from '../types/category';
 import DeckType from '../types/deck';
 import UserType from '../types/auth';
 import { getAllDecks, createDeck } from '../lib/apiWrapper';
-
+import Card from 'react-bootstrap/Card';
 
 type HomeProps = {
     isLoggedIn: boolean,
@@ -56,10 +56,13 @@ export default function Home({ isLoggedIn, user, flashMessage }: HomeProps) {
     return (
         <>
             <p className='text-center title'>Welcome {isLoggedIn ? user?.username : 'Duelist'}</p>
-            {isLoggedIn && <Button variant='success' className='submit-btn w-100' onClick={() => setDisplayForm(!displayForm)}>Create New Deck</Button>}
-            { displayForm && (
-                <DeckForm handleChange={handleInputChange} handleSubmit={handleFormSubmit} newDeck={newDeck} isLoggedIn={isLoggedIn}/>
-            )}
+            <div className='create-card text-center'>
+                {isLoggedIn && <Button className='view-btn w-75' onClick={() => setDisplayForm(!displayForm)}>Create New Deck</Button>}
+                { displayForm && (
+                    <DeckForm handleChange={handleInputChange} handleSubmit={handleFormSubmit} newDeck={newDeck} isLoggedIn={isLoggedIn}/>
+                )}
+            </div>
+            
             <div className='row mt-5'>
                 {decks.map( p => <DeckCard deck={p}  key={p.id} /> )}
             </div>

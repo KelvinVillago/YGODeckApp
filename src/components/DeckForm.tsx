@@ -13,11 +13,11 @@ type DeckFormProps = {
 export default function DeckForm({ handleChange, handleSubmit, newDeck, isLoggedIn }: DeckFormProps) {
     return (
         <Form onSubmit={handleSubmit} className='deck-form'>
-            <Form.Label>Deck Title</Form.Label>
+            <Form.Label className='create-title'>Deck Name</Form.Label>
             <Form.Control name='name' onChange={handleChange} value={newDeck.name} placeholder="Enter Deck Name" className='user-form-input'/>
             {/* <Form.Label>Deck Body</Form.Label> */}
             {/* <Form.Control name='body' as='textarea' onChange={handleChange} value={newDeck.body} placeholder="Enter Deck Body" /> */}
-            <Button className='mt-3 w-100 submit-btn' variant='warning' type='submit' disabled={!isLoggedIn}>Create Deck</Button>
+            <Button className='mt-3 w-100 submit-btn' type='submit' disabled={!isLoggedIn}>Create Deck</Button>
         </Form>
     )
 }
