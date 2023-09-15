@@ -13,3 +13,7 @@ I primarily used the YGOProDeck API for card information. They have put a lot of
 ### Description
 This application allows for users to create and log into an account on the app. A logged in user is allowed to create and edit a deck. For editing a deck, the user needs to search a specific card name and it will be added to the deck. The deck display will show a picture of all cards in the main, extra, and side decks. Any user logged in or not is able to view all decks on the app and download the ydk file if needed.
 
+### How to Run
+* In the terminal, run 'npm init'
+* Install React, React-bootstrap, React-router-dom, uuid
+

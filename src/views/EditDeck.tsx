@@ -117,7 +117,6 @@ export default function EditDeck({ flashMessage, currentUser }: EditDeckProps) {
                 let newDeck:Partial<DeckType> = {...deckToEdit!}
                 if(mainDeck.includes(cardResponse.data[0].type)){
                     if(mainCards.length! < 60){
-                        // setMainCards([...mainCards, cardResponse.data[0].id.toString()])
                         flashMessage(`${cardResponse.data[0].name} added to main deck`, 'success')
                         newDeck.mainDeck = [...mainCards, cardResponse.data[0].id.toString()].toString()
                     }
@@ -125,7 +124,6 @@ export default function EditDeck({ flashMessage, currentUser }: EditDeckProps) {
                         flashMessage('Your main deck must be less than 60 cards', 'warning')
                         let side = newDeck.sideDeck?.split(',')
                         if(side?.length! < 15){
-                            // setSideCards([...sideCards, cardRes?.data[0].id.toString()])
                             flashMessage(`${cardResponse.data[0].name} added to side deck`, 'success')
                             newDeck.sideDeck = [...sideCards, cardResponse.data[0].id.toString()].toString()
                         }
@@ -137,10 +135,8 @@ export default function EditDeck({ flashMessage, currentUser }: EditDeckProps) {
                 else if(extraDeck.includes(cardResponse.data[0].type)){
                     let extra = newDeck.extraDeck?.split(',')
                     if(extra?.length! < 15){
-                        // setExtraCards([...extraCards, cardRes?.data[0].id.toString()])
                         flashMessage(`${cardResponse.data[0].name} added to extra deck`, 'success')
                         newDeck.extraDeck = [...extraCards, cardResponse.data[0].id.toString()].toString()
-                        // newDeck.extraDeck = extraCards.toString()
                     }
                     else{
                         flashMessage('Your extra deck must be less than 15 cards', 'warning')
