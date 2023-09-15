@@ -6,7 +6,6 @@ import CategoryType from '../types/category';
 import DeckType from '../types/deck';
 import UserType from '../types/auth';
 import { getAllDecks, createDeck } from '../lib/apiWrapper';
-import Card from 'react-bootstrap/Card';
 
 type HomeProps = {
     isLoggedIn: boolean,
