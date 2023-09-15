@@ -252,13 +252,13 @@ export default function EditDeck({ flashMessage, currentUser }: EditDeckProps) {
                                     
                                     <div className='row'>
                                         <p className='label'>Main Deck</p>
-                                        {mainCards.length ? mainCards.map(( (p,i) => <AddCard card={p} key={i}/> )) : <p>There are no cards in the main deck</p>}
+                                        {mainCards.length ? mainCards.map(( (p,i) => <AddCard card={p} key={i} flashMessage={flashMessage}/> )) : <p>There are no cards in the main deck</p>}
                                         
                                         <p className='label'>Extra Deck</p>
-                                        {extraCards.length ? extraCards.map(( (p,i) => <AddCard card={p} key={i}/> )) : <p>There are no cards in the extra deck</p>}
+                                        {extraCards.length ? extraCards.map(( (p,i) => <AddCard card={p} key={i} flashMessage={flashMessage}/> )) : <p>There are no cards in the extra deck</p>}
 
                                         <p className='label'>Side Deck</p>
-                                        {sideCards.length > 0? sideCards.map(( (p,i) => <AddCard card={p} key={i}/> )) : <p>There are no cards in the side deck</p>}
+                                        {sideCards.length > 0? sideCards.map(( (p,i) => <AddCard card={p} key={i} flashMessage={flashMessage}/> )) : <p>There are no cards in the side deck</p>}
 
                                     </div>
                                     {!view && <Button variant='success' className='mt-3 w-50' type='submit'>Done</Button>}
@@ -293,13 +293,13 @@ export default function EditDeck({ flashMessage, currentUser }: EditDeckProps) {
                                 </div>
                                 <div className='row'>
                                     <p className='label'>Main Deck</p>
-                                    {mainCards.length ? mainCards.map(( (p,i) => <AddCard card={p} key={i}/> )) : <p>There are no cards in the main deck</p>}
+                                    {mainCards.length ? mainCards.map(( (p,i) => <AddCard card={p} key={i} flashMessage={flashMessage}/> )) : <p>There are no cards in the main deck</p>}
                                     
                                     <p className='label'>Extra Deck</p>
-                                    {extraCards.length ? extraCards.map(( (p,i) => <AddCard card={p} key={i}/> )) : <p>There are no cards in the extra deck</p>}
+                                    {extraCards.length ? extraCards.map(( (p,i) => <AddCard card={p} key={i} flashMessage={flashMessage}/> )) : <p>There are no cards in the extra deck</p>}
 
                                     <p className='label'>Side Deck</p>
-                                    {sideCards.length ? sideCards.map(( (p,i) => <AddCard card={p} key={i}/> )) : <p>There are no cards in the side deck</p>}
+                                    {sideCards.length ? sideCards.map(( (p,i) => <AddCard card={p} key={i} flashMessage={flashMessage}/> )) : <p>There are no cards in the side deck</p>}
 
                                 </div>
                             </Card.Body>
